@@ -1,0 +1,17 @@
+{% extends "DefaultLayout.html" %}
+{% block content %}
+		<h2>*Baseball stats here*</h2>
+{% endblock content %}
+<%{% block sidebar %}
+<div class="col-md-4">
+      <div class="content-section">
+        <h3>Quick Info</h3>
+        <p class='text-muted'>{{ userData[0] }}'s Baseball info.
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-light">Favorite Team: {{ userData[1] }}</li>
+            <li class="list-group-item list-group-item-light">Current Year: {{ userData[2] }}</li>
+          </ul>
+        </p>
+      </div>
+</div>
+{% endblock sidebar%}
