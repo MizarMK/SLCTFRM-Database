@@ -1,0 +1,4 @@
+user root
+password pass
+host localhost
+db baseballaccount

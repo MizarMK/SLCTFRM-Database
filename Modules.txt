@@ -1,0 +1,19 @@
+installed modules:
+
+	* Flask-WTF
+	* flask-SQLAlchemy
+	* Flask
+	* PyMySQL
+	* flask-bcrypt
+	* flask-login
+
+create account db:
+
+CREATE DATABASE baseballaccount;
+*use baseballaccount*
+CREATE TABLE account(
+    -> id INT NOT NULL AUTO_INCREMENT,
+    -> username VARCHAR(15) NOT NULL,
+    -> password VARCHAR(30) NOT NULL,
+    -> PRIMARY KEY (id)
+    -> );
