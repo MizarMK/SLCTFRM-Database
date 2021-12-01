@@ -5,6 +5,8 @@ from SLCTFRM import app, _bcrypt, db, cur
 from SLCTFRM.models import Account
 from flask_login import login_user, logout_user, current_user, login_required
 
+cur.execute("SELECT DISTINCT teamid FROM teams")
+teams = cur.fetchall()
 
 @app.route("/")
 def mainpage():
