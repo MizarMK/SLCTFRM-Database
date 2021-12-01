@@ -5,9 +5,6 @@ from SLCTFRM import app, _bcrypt, db, cur
 from SLCTFRM.models import Account
 from flask_login import login_user, logout_user, current_user, login_required
 
-cur.execute("SELECT DISTINCT teamid FROM teams")
-teams = cur.fetchall()
-
 @app.route("/")
 def mainpage():
     return render_template('Landing.html', title='Home')
@@ -37,6 +34,8 @@ def registrationpage():
         flash(f'Account Created Successfully! Login Now, {form.username.data}!', 'success')
         hashPass = _bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         account = Account(username=form.username.data, email=form.email.data, password=hashPass, favTeam=form.team.data)
+        if account.favTeam == 'None':
+            account.favTeam = None
         db.session.add(account)
         db.session.commit()
         return redirect(url_for('loginpage'))
@@ -55,7 +54,7 @@ def account():
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.email = form.email.data
-        if form.team.data != 'NUL':
+        if form.team.data != 'None':
             current_user.favTeam = form.team.data
         else:
             current_user.favTeam = None
