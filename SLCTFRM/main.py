@@ -2,8 +2,7 @@ import os.path
 
 import pymysql
 import csv
-import dbinit
-from SLCTFRM import csi3335fall2021 as cfg
+import csi3335fall2021 as dbinit 
 
 # League and Division IDs dictionaries
 lgIDs = {
