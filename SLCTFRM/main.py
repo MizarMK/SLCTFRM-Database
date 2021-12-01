@@ -1,13 +1,12 @@
 import pymysql
 import csv
+import csi3335fall2021 as cfg
 import sys
 import warnings
 
-import dbinit
-
 
 def insert_data(file, table, ndx, cursor):
-    file = open("SLCTFRM/" + file, "r")
+    file = open(file, "r")
     csvreader = csv.reader(file)
     header = []
     header = next(csvreader)
@@ -46,21 +45,47 @@ divIDs = {
     "C": "Central"
 }
 
-con = pymysql.connect(host=dbinit.host, user=dbinit.user, password=dbinit.passw)
+con = pymysql.connect(host=cfg.mysql['host'], user=cfg.mysql['username'], password=cfg.mysql['password'])
 
 try:
     cur = con.cursor()
 
-    with open('SLCTFRM/slctfrm.sql') as f:
+    cur.execute("DROP DATABASE IF EXISTS `slctfrm`")
+    print("Before:")
+    sqlQuery = "SHOW DATABASES;"
+
+    # Execute the sqlQuery
+    cur.execute(sqlQuery)
+
+    # Fetch all the rows
+    databaseList = cur.fetchall()
+
+    for database in databaseList:
+        print(database)
+
+    with open('slctfrm.sql') as f:
         returnList = f.read().split(";")
         for cmd in returnList:
             if cmd:
                 cur.execute(cmd)
 
+    print("After:")
+    sqlQuery = "SHOW DATABASES;"
+    cur.execute(sqlQuery)
+    databaseList = cur.fetchall()
+
+    for database in databaseList:
+        print(database)
+
+    sqlQuery = "SHOW TABLES;"
+    cur.execute(sqlQuery)
+    tableList = cur.fetchall()
+    print("Tables:")
+    for table in tableList:
+        print(table)
     # People_ndx = [0, 13, 14, 15, 5, 4, 1, 2, 3, 18(n), 19(n), 1(c)]
     People_ndx = [0, 13, 14, 15, 5, 4, 1, 2, 3, 18, 19, 1]
-    # Team_ndx = [None (autoID), 2, 0, 1, 3, None(playerID array Fix), None (GB), 10, 11, 12, 13, 8, 9, 6,
-    # 41 (ParkName fix]
+    # Team_ndx = [None (autoID), 2, 0, 1, 3, None(playerID array Fix), None (GB), 10, 11, 12, 13, 8, 9, 6, 41 (ParkName fix]
     Team_ndx = [None, 2, 0, 1, 3, None, None, 10, 11, 12, 13, 8, 9, 6, 41]
     # Parks_ndx = [0, 1, 2, 3]
     Parks_ndx = [0, 1, 3, 4]
