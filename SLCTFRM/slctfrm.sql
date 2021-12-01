@@ -1,4 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `SLCTFRM`;
+DROP DATABASE IF EXISTS `SLCTFRM`;
+CREATE DATABASE IF NOT EXISTS `SLCTFRM`;
 USE `SLCTFRM`;
 
 /* DROP TABLES */
@@ -14,13 +15,13 @@ SET NAMES utf8 ;
 DROP TABLE IF EXISTS account;
 SET character_set_client = utf8mb4 ;
 CREATE TABLE `account`(
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(15) NOT NULL,
   `email` VARCHAR(30) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  `favteam` VARCHAR(3) DEFAULT NULL,
+  `favteam` VARCHAR(3),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS people;
 SET character_set_client = utf8mb4 ;
