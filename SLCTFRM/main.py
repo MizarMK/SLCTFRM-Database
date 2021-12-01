@@ -65,7 +65,7 @@ try:
     with open(file) as f:
         returnList = f.read().split(";")
         for cmd in returnList:
-            if cmd:
+            if cmd.strip() != "":
                 cur.execute(cmd)
 
 
