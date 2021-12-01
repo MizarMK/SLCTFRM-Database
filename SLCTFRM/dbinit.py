@@ -1,13 +1,9 @@
 import pymysql
+from SLCTFRM import csi3335fall2021 as cfg
 
-user = 'root'
-passw = 'pass'
-host = 'localhost'
-db = 'SLCTFRM'
-
-con = pymysql.connect(host=host, user=user, password=passw, database=db)
+con = pymysql.connect(host=cfg.mysql['host'], user=cfg.mysql['username'], password=cfg.mysql['password'], database=cfg.mysql['database'])
 cur = con.cursor()
-cur.execute("SELECT DISTINCT teamid FROM teams")
+cur.execute("SELECT DISTINCT teamName FROM teams")
 results = cur.fetchall()
 teams = ['None']
 for row in results:
