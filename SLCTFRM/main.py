@@ -2,7 +2,7 @@ import os.path
 
 import pymysql
 import csv
-import csi3335fall2021 as dbinit 
+import csi3335fall2021 as cfg
 
 # League and Division IDs dictionaries
 lgIDs = {
@@ -55,7 +55,7 @@ def insert_div(table, dat, cursor):
         cursor.execute("INSERT INTO " + table + " VALUES (" + "'" + d + "', '" + dat[d] + "');")
 
 
-con = pymysql.connect(host=dbinit.host, user=dbinit.user, password=dbinit.passw)
+con = pymysql.connect(host=cfg.mysql['host'], user=cfg.mysql['username'], password=cfg.mysql['password'])
 
 try:
     cur = con.cursor()
