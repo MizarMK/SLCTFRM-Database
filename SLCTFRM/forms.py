@@ -8,8 +8,9 @@ import SLCTFRM.dbinit as dbinit
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), length(min=4, max=15)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired(), length(min=8)])
+    password = PasswordField('Password', validators=[DataRequired(), length(min=2)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), equal_to('password')])
+    team = SelectField(u'Favorite Team', choices=dbinit.teams)
     submit = SubmitField('Create Account!')
 
     def validate_username(self, username):
@@ -24,8 +25,8 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(),length(min=4, max=15)])
-    password = PasswordField('Password', validators=[DataRequired(), length(min=8)])
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
     remember_pass = BooleanField('Remember Password')
     submit = SubmitField('Login')
 

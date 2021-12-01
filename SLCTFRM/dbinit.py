@@ -1,5 +1,5 @@
 user = 'root'
 passw = 'pass'
 host = 'localhost'
-db = 'baseballaccount'
+db = 'slctfrm'
 teams = ['NUL','HOU', 'TEX', 'WAS', 'DET', 'MIA']

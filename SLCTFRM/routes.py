@@ -1,10 +1,9 @@
+import flask_login
 from flask import render_template, url_for, flash, redirect, request
 from SLCTFRM.forms import RegisterForm, LoginForm, UpdateAccountForm
-from SLCTFRM import app, _bcrypt, db
+from SLCTFRM import app, _bcrypt, db, cur
 from SLCTFRM.models import Account
 from flask_login import login_user, logout_user, current_user, login_required
-
-userData = ['Mizar', 'HOU', 2019]
 
 
 @app.route("/")
@@ -35,7 +34,7 @@ def registrationpage():
     if form.validate_on_submit():
         flash(f'Account Created Successfully! Login Now, {form.username.data}!', 'success')
         hashPass = _bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        account = Account(username=form.username.data, email=form.email.data, password=hashPass)
+        account = Account(username=form.username.data, email=form.email.data, password=hashPass, favTeam=form.team.data)
         db.session.add(account)
         db.session.commit()
         return redirect(url_for('loginpage'))
@@ -70,4 +69,8 @@ def account():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template('Dashboard.html', title='Dashboard', userData=userData)
+    # sql = "SELECT * FROM account"
+    # cur.execute(sql);
+    # results = cur.fetchall()
+    # print(results)
+    return render_template('Dashboard.html', title='Dashboard', userData=[current_user.username, current_user.favTeam, 2019])

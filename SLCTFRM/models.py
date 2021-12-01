@@ -14,4 +14,4 @@ class Account(db.Model, UserMixin):
     favTeam = db.Column(db.String(3), nullable=True)
 
     def __repr__(self):
-        return f"Account('{self.username}', '{self.email}')"
+        return f"'{self.username}, {self.email}, {self.favTeam}'"
