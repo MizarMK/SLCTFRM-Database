@@ -6,14 +6,19 @@ installed modules:
 	* PyMySQL
 	* flask-bcrypt
 	* flask-login
+	// * email-validator
+	// * WTForms
 
 create account db:
 
-CREATE DATABASE baseballaccount;
-*use baseballaccount*
+DROP DATABASE IF EXISTS slctfrm;
+CREATE DATABASE slctfrm;
+use slctfrm;
 CREATE TABLE account(
-    -> id INT NOT NULL AUTO_INCREMENT,
-    -> username VARCHAR(15) NOT NULL,
-    -> password VARCHAR(30) NOT NULL,
-    -> PRIMARY KEY (id)
-    -> );
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(15) NOT NULL,
+    email VARCHAR(30) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    favteam VARCHAR(3),
+    PRIMARY KEY (id)
+    );
