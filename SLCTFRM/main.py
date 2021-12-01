@@ -84,7 +84,7 @@ try:
     # People_ndx = [0, 13, 14, 15, 5, 4, 1, 2, 3, 18(n), 19(n), 1(c)]
     People_ndx = [0, 13, 14, 15, 5, 4, 1, 2, 3]
     # Teams_ndx = [None (autoID), 2, 0, 1, 3, None(playerID array Fix), None (GB), 10, 11, 12, 13, 8, 9, 6, 41 (ParkName fix]
-    Teams_ndx = [None, 2, 0, 1, 3, 10, 11, 12, 13, 8, 9, 6, 41]
+    Teams_ndx = [None, 2, 0, 1, 3, 10, 11, 12, 13, 8, 9, 6, 41, 40]
 
     # Parks_ndx = [0, 1, 2, 3]
     Parks_ndx = [0, 1, 3, 4]
