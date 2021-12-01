@@ -1,5 +1,5 @@
 user = 'root'
 passw = 'pass'
 host = 'localhost'
-db = 'slctfrm'
+db = 'SLCTFRM'
 teams = ['NUL','HOU', 'TEX', 'WAS', 'DET', 'MIA']
