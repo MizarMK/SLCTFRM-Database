@@ -57,6 +57,7 @@ CREATE TABLE `teams` (
   `L` int(6) DEFAULT NULL,
   `G` int(6) DEFAULT NULL,
   `parkName` varchar(255) DEFAULT NULL,
+  `teamName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `yearID` (`yearID`, `lgID`, `teamID`),
   KEY `teamID` (`teamID`),
