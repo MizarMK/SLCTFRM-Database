@@ -55,7 +55,7 @@ def insert_div(table, dat, cursor):
         cursor.execute("INSERT INTO " + table + " VALUES (" + "'" + d + "', '" + dat[d] + "');")
 
 
-con = pymysql.connect(host=cfg.sql['host'], user=cfg.sql['user'], password=cfg.sql['passw'])
+con = pymysql.connect(host=cfg.mysql['host'], user=cfg.mysql['user'], password=cfg.mysql['passw'])
 
 try:
     cur = con.cursor()
