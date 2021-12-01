@@ -17,6 +17,8 @@ divIDs = {
     "C": "Central"
 }
 
+import dbinit
+
 
 # Function to insert data into a table.
 #   file: name of the csv file
@@ -24,7 +26,7 @@ divIDs = {
 #   ndx: array of integers that refer to the index of header to grab data from
 #   cursor: the sql cursor object
 def insert_data(file, table, ndx, cursor):
-    file = open(file, "r")
+    file = open("SLCTFRM/" + file, "r")
     csvreader = csv.reader(file)
     header = next(csvreader)
     for row in csvreader:
@@ -50,23 +52,13 @@ def insert_div(table, dat, cursor):
         cursor.execute("INSERT INTO " + table + " VALUES (" + "'" + d + "', '" + dat[d] + "');")
 
 
-# Beginning of program
-# Initial sql connection made
-con = pymysql.connect(host=cfg.mysql['host'], user=cfg.mysql['username'], password=cfg.mysql['password'])
+
+con = pymysql.connect(host=dbinit.host, user=dbinit.user, password=dbinit.passw)
+
 try:
     cur = con.cursor()
 
-    # Testing by showing the databases after dropping slctfrm
-    cur.execute("DROP DATABASE IF EXISTS `slctfrm`")
-    print("Before:")
-    sqlQuery = "SHOW DATABASES;"
-    cur.execute(sqlQuery)
-    databaseList = cur.fetchall()
-    for database in databaseList:
-        print(database)
-
-    # Reads in the SQL file to create the database and tables
-    with open('slctfrm.sql') as f:
+    with open('SLCTFRM/slctfrm.sql') as f:
         returnList = f.read().split(";")
         for cmd in returnList:
             if cmd:
@@ -93,6 +85,7 @@ try:
     People_ndx = [0, 13, 14, 15, 5, 4, 1, 2, 3]
     # Teams_ndx = [None (autoID), 2, 0, 1, 3, None(playerID array Fix), None (GB), 10, 11, 12, 13, 8, 9, 6, 41 (ParkName fix]
     Teams_ndx = [None, 2, 0, 1, 3, 10, 11, 12, 13, 8, 9, 6, 41]
+
     # Parks_ndx = [0, 1, 2, 3]
     Parks_ndx = [0, 1, 3, 4]
     # Batting_ndx = [None, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
