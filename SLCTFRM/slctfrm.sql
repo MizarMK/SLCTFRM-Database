@@ -4,10 +4,13 @@ USE `SLCTFRM`;
 /* DROP TABLES */
 DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS people;
-DROP TABLE IF EXISTS team;
+DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS parks;
 DROP TABLE IF EXISTS divisions;
 DROP TABLE IF EXISTS leagues;
+DROP TABLE IF EXISTS batting;
+DROP TABLE IF EXISTS pitching;
+DROP TABLE IF EXISTS appearances;
 
 SET NAMES utf8 ;
 
@@ -34,22 +37,17 @@ CREATE TABLE `people` (
   `birthYear` int(11) DEFAULT NULL,
   `birthMonth` int(11) DEFAULT NULL,
   `birthDay` int(11) DEFAULT NULL,
-  `batter` varchar(1) DEFAULT NULL,
-  `pitcher` varchar(1) DEFAULT NULL,
-  `age` smallint(2) DEFAULT NULL,
   PRIMARY KEY (`personID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS team;
+DROP TABLE IF EXISTS teams;
 SET character_set_client = utf8mb4 ;
-CREATE TABLE `team` (
+CREATE TABLE `teams` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `teamID` varchar(4) NOT NULL,
   `yearID` smallint(4) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
   `franchID` varchar(3) DEFAULT NULL,
-  `personID` varchar(9) DEFAULT NULL, /* TODO: FIX THE ARRAY THING */
-  `GB` int(6) DEFAULT NULL,
   `divWin` varchar(1) DEFAULT NULL,
   `WCWin` varchar(1) DEFAULT NULL,
   `LGWin` varchar(1) DEFAULT NULL,
@@ -57,7 +55,7 @@ CREATE TABLE `team` (
   `W` int(6) DEFAULT NULL,
   `L` int(6) DEFAULT NULL,
   `G` int(6) DEFAULT NULL,
-  `parkID` varchar(255) DEFAULT NULL,
+  `parkName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `yearID` (`yearID`, `lgID`, `teamID`),
   KEY `teamID` (`teamID`),
@@ -89,4 +87,62 @@ CREATE TABLE `leagues` (
   `leagueID` varchar(2) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`leagueID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS batting;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE `batting` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `playerID` varchar(9) NOT NULL,
+  `yearID` smallint(6) NOT NULL,
+  `stint` smallint(6) NOT NULL,
+  `teamID` varchar(3) DEFAULT NULL,
+  `lgID` varchar(2) DEFAULT NULL,
+  `G` smallint(6) DEFAULT NULL,
+  `AB` smallint(6) DEFAULT NULL,
+  `R` smallint(6) DEFAULT NULL,
+  `H` smallint(6) DEFAULT NULL,
+  `2B` smallint(6) DEFAULT NULL,
+  `3B` smallint(6) DEFAULT NULL,
+  `HR` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `playerID` (`playerID`,`yearID`,`stint`),
+  KEY `lgID` (`lgID`),
+  KEY `teamID` (`teamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS pitching;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE `pitching` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `playerID` varchar(9) NOT NULL,
+  `yearID` smallint(6) NOT NULL,
+  `stint` smallint(6) NOT NULL,
+  `teamID` char(3) DEFAULT NULL,
+  `lgID` char(2) DEFAULT NULL,
+  `W` smallint(6) DEFAULT NULL,
+  `L` smallint(6) DEFAULT NULL,
+  `G` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `playerID` (`playerID`,`yearID`,`stint`),
+  KEY `lgID` (`lgID`),
+  KEY `teamID` (`teamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS appearances;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE `appearances` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `yearID` smallint(6) NOT NULL,
+  `teamID` char(3) NOT NULL,
+  `lgID` char(2) DEFAULT NULL,
+  `playerID` varchar(9) NOT NULL,
+  `G_all` smallint(6) DEFAULT NULL,
+  `G_batting` smallint(6) DEFAULT NULL,
+  `G_pitcher` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `yearID` (`yearID`,`teamID`,`playerID`),
+  KEY `lgID` (`lgID`),
+  KEY `teamID` (`teamID`),
+  KEY `playerID` (`playerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
