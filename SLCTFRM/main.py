@@ -3,7 +3,7 @@ import os.path
 import pymysql
 import csv
 import dbinit
-import csi3335fall2021 as cfg
+from SLCTFRM import csi3335fall2021 as cfg
 
 # League and Division IDs dictionaries
 lgIDs = {
