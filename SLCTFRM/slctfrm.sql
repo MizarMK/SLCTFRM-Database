@@ -89,13 +89,13 @@ INSERT INTO `divisions` VALUES(
     'ALW', 'W', 'AL', 'American League West'
 );
 INSERT INTO `divisions` VALUES(
-    'NLW', 'W', 'AL', 'National League West'
+    'NLW', 'W', 'NL', 'National League West'
 );
 INSERT INTO `divisions` VALUES(
     'ALE', 'E', 'AL', 'American League East'
 );
 INSERT INTO `divisions` VALUES(
-    'NLE', 'E', 'NL', 'National League West'
+    'NLE', 'E', 'NL', 'National League East'
 );
 INSERT INTO `divisions` VALUES(
     'ALC', 'C', 'AL', 'American League Central'
@@ -122,9 +122,9 @@ INSERT INTO `divisions` VALUES(
 DROP TABLE IF EXISTS leagues;
 SET character_set_client = utf8mb4 ;
 CREATE TABLE `leagues` (
-  `leagueID` varchar(2) NOT NULL,
+  `lgID` varchar(2) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`leagueID`)
+  PRIMARY KEY (`lgID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS batting;
