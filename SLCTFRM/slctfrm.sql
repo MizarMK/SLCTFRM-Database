@@ -50,6 +50,7 @@ CREATE TABLE `teams` (
   `yearID` smallint(4) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
   `franchID` varchar(3) DEFAULT NULL,
+  `divID` varchar(1) DEFAULT NULL,
   `divWin` varchar(1) DEFAULT NULL,
   `WCWin` varchar(1) DEFAULT NULL,
   `LGWin` varchar(1) DEFAULT NULL,
@@ -79,11 +80,45 @@ CREATE TABLE `parks` (
 DROP TABLE IF EXISTS divisions;
 SET character_set_client = utf8mb4 ;
 CREATE TABLE `divisions` (
-  `divID` varchar(9) NOT NULL,
+  `divKey` varchar(9) NOT NULL,
+  `divID` varchar(1) NOT NULL,
   lgID varchar(9) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`divID`)
+  PRIMARY KEY (`divKey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `divisions` VALUES(
+    'ALW', 'W', 'AL', 'American League West'
+);
+INSERT INTO `divisions` VALUES(
+    'NLW', 'W', 'NL', 'National League West'
+);
+INSERT INTO `divisions` VALUES(
+    'ALE', 'E', 'AL', 'American League East'
+);
+INSERT INTO `divisions` VALUES(
+    'NLE', 'E', 'NL', 'National League East'
+);
+INSERT INTO `divisions` VALUES(
+    'ALC', 'C', 'AL', 'American League Central'
+);
+INSERT INTO `divisions` VALUES(
+    'NLC', 'C', 'NL', 'National League Central'
+);
+INSERT INTO `divisions` VALUES(
+    'AA', 'A', 'AA', 'Sole Division'
+);
+INSERT INTO `divisions` VALUES(
+    'FL', 'F', 'FL', 'Sole Division'
+);
+INSERT INTO `divisions` VALUES(
+    'NA', 'N', 'NA', 'Sole Division'
+);
+INSERT INTO `divisions` VALUES(
+    'PL', 'P', 'PL', 'Sole Division'
+);
+INSERT INTO `divisions` VALUES(
+    'UA', 'U', 'UA', 'Sole Division'
+);
 
 DROP TABLE IF EXISTS leagues;
 SET character_set_client = utf8mb4 ;
