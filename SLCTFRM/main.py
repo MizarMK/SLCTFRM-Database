@@ -14,9 +14,17 @@ lgIDs = {
     "PL": "Players League",
     "UA": "Union Association"}
 divIDs = {
-    "W": "West",
-    "E": "East",
-    "C": "Central"
+    "ALW": ["AL", "American League West", "W"],
+    "NLW": ["NL", "National League West", "W"],
+    "ALE": ["AL", "American League East", "E"],
+    "NLE": ["NL", "National League East", "E"],
+    "ALC": ["AL", "American League Central", "C"],
+    "NLC": ["NL", "Central", "C"],
+    "A": ["AA", "Sole Division", "A"],
+    "F": ["FL", "Sole Division", "F"],
+    "N": ["NA", "Sole Division", "N"],
+    "P": ["PL", "Sole Division", "P"],
+    "U": ["UA", "Sole Division", "U"],
 }
 here = os.path.dirname(os.path.abspath(__file__))
 
@@ -52,7 +60,7 @@ def insert_data(file, table, ndx, cursor):
 # Small function to insert the division and league IDs
 def insert_div(table, dat, cursor):
     for d in dat:
-        cursor.execute("INSERT INTO " + table + " VALUES (" + "'" + d + "', '" + dat[d] + "');")
+        cursor.execute("INSERT INTO " + table + " VALUES (" + "'" + d + "', '" + dat[d][2] + "', '" + dat[d][0] + "', '" + dat[d][1] + "');")
 
 
 con = pymysql.connect(host=cfg.mysql['host'], user=cfg.mysql['username'], password=cfg.mysql['password'])

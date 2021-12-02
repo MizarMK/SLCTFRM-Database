@@ -80,6 +80,7 @@ DROP TABLE IF EXISTS divisions;
 SET character_set_client = utf8mb4 ;
 CREATE TABLE `divisions` (
   `divID` varchar(9) NOT NULL,
+  lgID varchar(9) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`divID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

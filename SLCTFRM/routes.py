@@ -1,7 +1,8 @@
 import flask_login
+from cffi.setuptools_ext import execfile
 from flask import render_template, url_for, flash, redirect, request
 from SLCTFRM.forms import RegisterForm, LoginForm, UpdateAccountForm
-from SLCTFRM import app, _bcrypt, db, cur
+from SLCTFRM import app, _bcrypt, db, cur, yearStandings
 from SLCTFRM.models import Account
 from flask_login import login_user, logout_user, current_user, login_required
 from datetime import date
@@ -92,5 +93,7 @@ def dashboard():
     # cur.execute(sql);
     # results = cur.fetchall()
     # print(results)
+    div = yearStandings.createStandings()
+    print(div)
     return render_template('Dashboard.html', title='Dashboard',
                            userData=[current_user.username, current_user.favTeam, date.today().year])
