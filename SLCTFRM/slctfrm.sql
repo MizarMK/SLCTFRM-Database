@@ -50,6 +50,7 @@ CREATE TABLE `teams` (
   `yearID` smallint(4) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
   `franchID` varchar(3) DEFAULT NULL,
+  `divID` varchar(1) DEFAULT NULL,
   `divWin` varchar(1) DEFAULT NULL,
   `WCWin` varchar(1) DEFAULT NULL,
   `LGWin` varchar(1) DEFAULT NULL,
@@ -80,7 +81,7 @@ DROP TABLE IF EXISTS divisions;
 SET character_set_client = utf8mb4 ;
 CREATE TABLE `divisions` (
   `divKey` varchar(9) NOT NULL,
-  `divID` varchar(9) NOT NULL,
+  `divID` varchar(1) NOT NULL,
   lgID varchar(9) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`divKey`)
