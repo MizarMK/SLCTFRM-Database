@@ -13,19 +13,6 @@ lgIDs = {
     "NL": "National League",
     "PL": "Players League",
     "UA": "Union Association"}
-divIDs = {
-    "ALW": ["AL", "American League West", "W"],
-    "NLW": ["NL", "National League West", "W"],
-    "ALE": ["AL", "American League East", "E"],
-    "NLE": ["NL", "National League East", "E"],
-    "ALC": ["AL", "American League Central", "C"],
-    "NLC": ["NL", "Central", "C"],
-    "A": ["AA", "Sole Division", "A"],
-    "F": ["FL", "Sole Division", "F"],
-    "N": ["NA", "Sole Division", "N"],
-    "P": ["PL", "Sole Division", "P"],
-    "U": ["UA", "Sole Division", "U"],
-}
 here = os.path.dirname(os.path.abspath(__file__))
 
 # Function to insert data into a table.
@@ -60,7 +47,7 @@ def insert_data(file, table, ndx, cursor):
 # Small function to insert the division and league IDs
 def insert_div(table, dat, cursor):
     for d in dat:
-        cursor.execute("INSERT INTO " + table + " VALUES (" + "'" + d + "', '" + dat[d][2] + "', '" + dat[d][0] + "', '" + dat[d][1] + "');")
+        cursor.execute("INSERT INTO " + table + " VALUES (" + "'" + d + "', '" + dat[d] + "');")
 
 
 con = pymysql.connect(host=cfg.mysql['host'], user=cfg.mysql['username'], password=cfg.mysql['password'])
@@ -108,9 +95,6 @@ try:
 
     insert_data("Appearances.csv", "appearances", Appearances_ndx, cur)
     print("Apps Done.")
-
-    insert_div("divisions", divIDs, cur)
-    print("Divisions Done.")
 
     insert_div("leagues", lgIDs, cur)
     print("Leagues Done.")
