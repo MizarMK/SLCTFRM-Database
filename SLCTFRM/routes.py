@@ -63,6 +63,7 @@ def logout():
 @app.route("/standings", methods=['GET', 'POST'])
 @login_required
 def standings():
+    stands = yearStandings.createStandings()
     return render_template('Standings.html', title='Standings', list=[1,2,3,4,5,6,7,8,9,10])
 
 
@@ -93,7 +94,5 @@ def dashboard():
     # cur.execute(sql);
     # results = cur.fetchall()
     # print(results)
-    div = yearStandings.createStandings()
-    print(div)
     return render_template('Dashboard.html', title='Dashboard',
                            userData=[current_user.username, current_user.favTeam, date.today().year])
