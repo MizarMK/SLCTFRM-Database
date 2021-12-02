@@ -50,6 +50,7 @@ CREATE TABLE `teams` (
   `yearID` smallint(4) DEFAULT NULL,
   `lgID` varchar(2) DEFAULT NULL,
   `franchID` varchar(3) DEFAULT NULL,
+  `divID` varchar(3) DEFAULT NULL,
   `divWin` varchar(1) DEFAULT NULL,
   `WCWin` varchar(1) DEFAULT NULL,
   `LGWin` varchar(1) DEFAULT NULL,
