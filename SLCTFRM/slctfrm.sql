@@ -22,7 +22,8 @@ CREATE TABLE `account`(
   `username` VARCHAR(15) NOT NULL,
   `email` VARCHAR(30) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  `favteam` VARCHAR(3),
+  `favteamid` VARCHAR(3),
+  `favteam` VARCHAR(30),
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

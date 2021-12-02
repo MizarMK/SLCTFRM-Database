@@ -4,6 +4,8 @@ from SLCTFRM.forms import RegisterForm, LoginForm, UpdateAccountForm
 from SLCTFRM import app, _bcrypt, db, cur
 from SLCTFRM.models import Account
 from flask_login import login_user, logout_user, current_user, login_required
+from datetime import date
+
 
 @app.route("/")
 def mainpage():
@@ -36,6 +38,15 @@ def registrationpage():
         account = Account(username=form.username.data, email=form.email.data, password=hashPass, favTeam=form.team.data)
         if account.favTeam == 'None':
             account.favTeam = None
+            account.favTeamid = None
+        else:
+            cur.execute(f"SELECT DISTINCT teamid FROM teams WHERE teamName = '{account.favTeam}' LIMIT 1")
+            res = cur.fetchall()
+            for row in res:
+                for col in row:
+                    tm = col
+
+            account.favTeamid = tm
         db.session.add(account)
         db.session.commit()
         return redirect(url_for('loginpage'))
@@ -48,6 +59,13 @@ def logout():
     return redirect(url_for('mainpage'))
 
 
+@app.route("/standings", methods=['GET', 'POST'])
+@login_required
+def standings():
+    return render_template('Standings.html', title='Standings', list=[1,2,3,4,5,6,7,8,9,10])
+
+
+@login_required
 @app.route("/account", methods=['GET', 'POST'])
 def account():
     form = UpdateAccountForm()
@@ -74,4 +92,5 @@ def dashboard():
     # cur.execute(sql);
     # results = cur.fetchall()
     # print(results)
-    return render_template('Dashboard.html', title='Dashboard', userData=[current_user.username, current_user.favTeam, 2019])
+    return render_template('Dashboard.html', title='Dashboard',
+                           userData=[current_user.username, current_user.favTeam, date.today().year])

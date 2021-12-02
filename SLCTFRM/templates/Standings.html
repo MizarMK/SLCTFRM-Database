@@ -1,0 +1,14 @@
+{% extends "DefaultLayout.html" %}
+{% block content %}
+    <main role="main" class="container">
+      <div class="content-section">
+          <div class="col-md-8">
+              <div>
+                  {% for i in list %}
+                      <h1>{{ i }}</h1>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+    </main>
+{% endblock content %}
