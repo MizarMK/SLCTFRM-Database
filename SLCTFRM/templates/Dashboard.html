@@ -1,17 +1,55 @@
 {% extends "DefaultLayout.html" %}
 {% block content %}
-		<h2>*Baseball stats here*</h2>
+    <main role="main" class="container">
+      <div class="content-section">
+          <div class="col-md-8">
+              <div>
+              <table class="table table-dark table-striped">
+                     <thead>
+                         <tr>
+                             <th scope="col">Name</th>
+                             <th scope="col">Birthplace</th>
+                             <th scope="col">Age</th>
+                             <th scope="col">Pitcher</th>
+                             <th scope="col">Hitter</th>
+                         </tr>
+                     </thead>
+                          {% for line in roster.split(']') %}
+                              <tbody>
+                              {% for item in line.split(',') %}
+                                <td>{{ item }}</td>
+                              {% endfor %}
+                              </tbody>
+                          {% endfor %}
+              </table>
+              </div>
+          </div>
+      </div>
+    </main>
 {% endblock content %}
-<%{% block sidebar %}
+{% block sidebar %}
 <div class="col-md-4">
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
       <div class="content-section">
         <h3>Quick Info</h3>
         <p class='text-muted'>{{ userData[0] }}'s Baseball info.
           <ul class="list-group">
             <li class="list-group-item list-group-item-light">Favorite Team: {{ userData[1] }}</li>
-            <li class="list-group-item list-group-item-light">Current Year: {{ userData[2] }}</li>
+            <li class="list-group-item list-group-item-light">Current Year: {{ year }}</li>
           </ul>
+          </br>
+          </br>
+          <h3>Select Year</h3>
+          <div class="form-group">
+            {{ form.yrslct.label(class="form-control-label") }}
+            {{ form.yrslct() }}
+          </div>
+          <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+          </div>
         </p>
       </div>
+</form>
 </div>
 {% endblock sidebar%}

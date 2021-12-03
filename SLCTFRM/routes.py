@@ -1,11 +1,14 @@
 import flask_login
 from cffi.setuptools_ext import execfile
 from flask import render_template, url_for, flash, redirect, request
-from SLCTFRM.forms import RegisterForm, LoginForm, UpdateAccountForm
-from SLCTFRM import app, _bcrypt, db, cur, yearStandings
+
+from SLCTFRM.forms import RegisterForm, LoginForm, UpdateAccountForm, StandingsForm
+from SLCTFRM import app, _bcrypt, db, cur, yearStandings, roster
 from SLCTFRM.models import Account
 from flask_login import login_user, logout_user, current_user, login_required
 from datetime import date
+
+now = 2020
 
 
 @app.route("/")
@@ -57,14 +60,21 @@ def registrationpage():
 @app.route("/logout")
 def logout():
     logout_user()
+    global now
+    now = 2020
     return redirect(url_for('mainpage'))
 
 
 @app.route("/standings", methods=['GET', 'POST'])
-@login_required
 def standings():
-    stands = yearStandings.createStandings()
-    return render_template('Standings.html', title='Standings', list=[1,2,3,4,5,6,7,8,9,10])
+    form = StandingsForm()
+    if form.validate_on_submit():
+        global now
+        now = form.yrslct.data
+        return redirect(url_for('standings'))
+    stands = yearStandings.createStandings(now)
+    print(stands)
+    return render_template('Standings.html', title='Standings', standings=stands, form=form)
 
 
 @login_required
@@ -76,8 +86,16 @@ def account():
         current_user.email = form.email.data
         if form.team.data != 'None':
             current_user.favTeam = form.team.data
+            cur.execute(f"SELECT DISTINCT teamid FROM teams WHERE teamName = '{form.team.data}' LIMIT 1")
+            res = cur.fetchall()
+            for row in res:
+                for col in row:
+                    tm = col
+
+            current_user.favTeamid = tm
         else:
             current_user.favTeam = None
+            current_user.favTeamid = None
         db.session.commit()
         flash(f'Account credentials have been changed', 'success')
         return redirect(url_for('account'))
@@ -87,12 +105,15 @@ def account():
     return render_template('Account.html', title='Account', form=form)
 
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    # sql = "SELECT * FROM account"
-    # cur.execute(sql);
-    # results = cur.fetchall()
-    # print(results)
+    global now
+    if current_user:
+        _roster = roster.getRoster(current_user.favTeamid, now)
+    form = StandingsForm()
+    if form.validate_on_submit():
+        now = form.yrslct.data
+        return redirect(url_for('dashboard'))
     return render_template('Dashboard.html', title='Dashboard',
-                           userData=[current_user.username, current_user.favTeam, date.today().year])
+                           userData=[current_user.username, current_user.favTeam], year=now, roster=_roster, form=form)
