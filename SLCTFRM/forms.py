@@ -31,6 +31,12 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 
+class StandingsForm(FlaskForm):
+    years = range(1871, 2021)
+    yrslct = SelectField(u'Year', choices=years)
+    submit = SubmitField('ChangeYear')
+
+
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), length(min=4, max=15)])
     email = StringField('Email', validators=[DataRequired(), Email()])

@@ -1,11 +1,11 @@
 body {
-  background: #fafafa;
-  color: #333333;
+  background: #232323;
+  color: #d2d2d2;
   margin-top: 5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #444444;
+  color: #b9b9b9;
 }
 
 .bg-steel {
@@ -25,9 +25,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-section {
-  background: #ffffff;
+  background: #2f2f2f;
   padding: 10px 20px;
-  border: 1px solid #dddddd;
+  border: 1px solid #000000;
   border-radius: 3px;
   margin-bottom: 20px;
 }
